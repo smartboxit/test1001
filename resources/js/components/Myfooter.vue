@@ -1,6 +1,6 @@
 <template>
  
-  <div class="content has-text-centered">
+  <div class="content has-text-centered" >
     <p>
       <strong>Bulma</strong> <br>
       by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed

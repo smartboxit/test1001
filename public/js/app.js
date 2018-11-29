@@ -46477,9 +46477,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: '',
                 phone: '',
                 email: ''
-            }
+            },
+            errors: {}
         };
     },
+
 
     methods: {
         close: function close() {
@@ -46490,7 +46492,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.post('/phonebook', this.$data.list).then(function (response) {
                 return _this.close();
-            }).catch(function (error) {
+            })
+            //.catch(  error=>this.errors=error.response.data)
+            .catch(function (error) {
                 return console.log(error);
             });
         }

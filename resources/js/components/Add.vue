@@ -48,9 +48,12 @@ export default {
             name:'',
             phone:'',
             email:''
-          }
+          },
+          errors:{}
         }
+
     },
+
     methods: {
         close() {
             this.$emit('closeRequest')
@@ -59,7 +62,8 @@ export default {
         save() {
           axios.post('/phonebook',this.$data.list)
                 .then(response=>this.close())
-                .catch(error=>console.log(error))
+                //.catch(  error=>this.errors=error.response.data)
+                .catch(  error=>console.log(error))
         }
     }
 }

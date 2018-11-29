@@ -1133,18 +1133,18 @@ var routes = [{ path: '/home', component: Home }, { path: '/about', component: A
  */
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
-  //mode:'history',
-  routes: routes // short for `routes: routes`
+    //mode:'history',
+    routes: routes // short for `routes: routes`
 });
 
 var app = new Vue({
-  el: '#app',
+    el: '#app',
 
-  components: { Myheader: Myheader, Myfooter: Myfooter },
-  router: router,
-  created: function created() {
-    console.log('Hello World');
-  }
+    components: { Myheader: Myheader, Myfooter: Myfooter },
+    router: router,
+    created: function created() {
+        console.log('Hello World call from app.js');
+    }
 });
 
 /***/ }),
@@ -46447,13 +46447,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['openmodal'],
+    data: function data() {
+        return {
+            list: {
+                name: '',
+                phone: '',
+                email: ''
+            }
+        };
+    },
 
     methods: {
         close: function close() {
             this.$emit('closeRequest');
+        },
+        save: function save() {
+            var _this = this;
+
+            axios.post('/phonebook', this.$data.list).then(function (response) {
+                return _this.close();
+            }).catch(function (error) {
+                return console.log(error);
+            });
         }
     }
 });
@@ -46480,12 +46519,98 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("section", { staticClass: "modal-card-body" }),
+      _c("section", { staticClass: "modal-card-body" }, [
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.list.name,
+                  expression: "list.name"
+                }
+              ],
+              staticClass: "input",
+              attrs: { type: "text", placeholder: "Text input" },
+              domProps: { value: _vm.list.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.list, "name", $event.target.value)
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("Phone number")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.list.phone,
+                  expression: "list.phone"
+                }
+              ],
+              staticClass: "input",
+              attrs: { type: "text", placeholder: "Text input" },
+              domProps: { value: _vm.list.phone },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.list, "phone", $event.target.value)
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("label", { staticClass: "label" }, [_vm._v("Email")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.list.email,
+                  expression: "list.email"
+                }
+              ],
+              staticClass: "input",
+              attrs: { type: "text", placeholder: "Text input" },
+              domProps: { value: _vm.list.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.list, "email", $event.target.value)
+                }
+              }
+            })
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("footer", { staticClass: "modal-card-foot" }, [
-        _c("button", { staticClass: "button is-success" }, [
-          _vm._v("Save changes")
-        ]),
+        _c(
+          "button",
+          { staticClass: "button is-success", on: { click: _vm.save } },
+          [_vm._v("Save changes")]
+        ),
         _vm._v(" "),
         _c("button", { staticClass: "button", on: { click: _vm.close } }, [
           _vm._v("Cancel")

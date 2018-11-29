@@ -64,7 +64,7 @@ const app = new Vue({
     components: {Myheader,Myfooter},
     router,
     created() {
-        console.log('Hello World')
-            } 
-    
+        console.log('Hello World call from app.js')
+            }
+
 });

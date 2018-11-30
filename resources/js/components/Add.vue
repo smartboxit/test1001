@@ -13,6 +13,7 @@
             <div class="control">
               <input class="input" type="text" placeholder="Text input" v-model="list.name" >
             </div>
+              <small v-if="errors.name" class="has-text-danger" >{{errors.name[0]}}</small>
           </div>
 
           <div class="field">
@@ -20,6 +21,7 @@
             <div class="control">
               <input class="input" type="text" placeholder="Text input" v-model="list.phone">
             </div>
+              <small v-if="errors.phone" class="has-text-danger" >{{errors.phone[0]}}</small>
           </div>
 
           <div class="field">
@@ -27,6 +29,7 @@
             <div class="control">
               <input class="input" type="text" placeholder="Text input" v-model="list.email">
             </div>
+              <small v-if="errors.email" class="has-text-danger" >{{errors.email[0]}}</small>
           </div>
 
         </section>
@@ -42,7 +45,7 @@
 <script>
 export default {
     props: ['openmodal'],
-    data() {
+    data: function() {
         return {
           list: {
             name:'',
@@ -62,9 +65,13 @@ export default {
         save() {
           axios.post('/phonebook',this.$data.list)
                 .then(response=>this.close())
-                //.catch(  error=>this.errors=error.response.data)
-                .catch(  error=>console.log(error))
+                .catch(error=>this.errors=>{error.response.data.errors
+                                  ,error.response.data.messages}
+                )
+
+                //.catch(error=>console.log(error))
         }
     }
 }
+
 </script>

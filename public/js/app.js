@@ -46423,83 +46423,9 @@ module.exports = Component.exports
 
 /***/ }),
 /* 47 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['openmodal'],
-    data: function data() {
-        return {
-            list: {
-                name: '',
-                phone: '',
-                email: ''
-            },
-            errors: {}
-        };
-    },
-
-
-    methods: {
-        close: function close() {
-            this.$emit('closeRequest');
-        },
-        save: function save() {
-            var _this = this;
-
-            axios.post('/phonebook', this.$data.list).then(function (response) {
-                return _this.close();
-            })
-            //.catch(  error=>this.errors=error.response.data)
-            .catch(function (error) {
-                return console.log(error);
-            });
-        }
-    }
-});
+throw new Error("Module build failed: SyntaxError: E:/dev/git/test1001/resources/js/components/Add.vue: Unexpected token, expected , (68:41)\n\n\u001b[0m \u001b[90m 66 | \u001b[39m          axios\u001b[33m.\u001b[39mpost(\u001b[32m'/phonebook'\u001b[39m\u001b[33m,\u001b[39m\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$data\u001b[33m.\u001b[39mlist)\n \u001b[90m 67 | \u001b[39m                \u001b[33m.\u001b[39mthen(response\u001b[33m=>\u001b[39m\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mclose())\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 68 | \u001b[39m                \u001b[33m.\u001b[39m\u001b[36mcatch\u001b[39m(error\u001b[33m=>\u001b[39m\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39merrors\u001b[33m=>\u001b[39m{error\u001b[33m.\u001b[39mresponse\u001b[33m.\u001b[39mdata\u001b[33m.\u001b[39merrors\n \u001b[90m    | \u001b[39m                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 69 | \u001b[39m                                  \u001b[33m,\u001b[39merror\u001b[33m.\u001b[39mresponse\u001b[33m.\u001b[39mdata\u001b[33m.\u001b[39mmessages}\n \u001b[90m 70 | \u001b[39m                )\n \u001b[90m 71 | \u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 48 */
@@ -46549,7 +46475,13 @@ var render = function() {
                 }
               }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.errors.name
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.name[0]))
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "field" }, [
@@ -46577,7 +46509,13 @@ var render = function() {
                 }
               }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.errors.phone
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.phone[0]))
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "field" }, [
@@ -46605,7 +46543,13 @@ var render = function() {
                 }
               }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.errors.email
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.email[0]))
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),

@@ -48,9 +48,9 @@ export default {
     data: function() {
         return {
           list: {
-            name:'',
-            phone:'',
-            email:''
+            name:' ',
+            phone:' ',
+            email:' '
           },
           errors:{}
         }
@@ -59,17 +59,16 @@ export default {
 
     methods: {
         close() {
-            this.$emit('closeRequest')
+            this.$emit('closeRequest'),
+            this.$data();     
         },
 
         save() {
           axios.post('/phonebook',this.$data.list)
                 .then(response=>this.close())
-                .catch(error=>this.errors=>{error.response.data.errors
-                                  ,error.response.data.messages}
-                )
-
+                .catch(error=>this.errors=error.response.data.errors),
                 //.catch(error=>console.log(error))
+           this.$data();     
         }
     }
 }

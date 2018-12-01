@@ -38,9 +38,9 @@ class PhonebookController extends Controller
     {
         $pb = new phonebook;
 
-        $pb->iname= $request->name;
+        $pb->name= $request->name;
         $pb->phone= $request->phone;
-        $pb->iemail= $request->email;
+        $pb->email= $request->email;
         $pb->save();
     }
 
@@ -89,3 +89,4 @@ class PhonebookController extends Controller
         //
     }
 }
+

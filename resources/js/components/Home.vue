@@ -57,6 +57,11 @@ export default {
                 }
     },
     
+    mounted() {
+           
+           return(console.log('working'))
+    },
+
     methods:{
         openAdd() {
                 this.addActive='is-active'

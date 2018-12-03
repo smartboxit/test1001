@@ -1,5 +1,6 @@
 <template>
-    <div class="modal" :class='openmodal'>
+
+    <div  class="modal" :class='openmodal' :key="client_id">
         <div class="modal-background"></div>
             <div class="modal-card">
         <header class="modal-card-head">
@@ -37,38 +38,40 @@
             <button class="button is-success" @click="save" >Save changes</button>
             <button class="button" @click='close'>Cancel</button>
         </footer>
+      </div>
     </div>
-    </div>
+
 </template>
 
 
 <script>
 export default {
-    props: ['openmodal'],
-    data: function() {
+    props: ['openmodal','client_id'],
+
+    data() {
         return {
           list: {
-            name:' ',
-            phone:' ',
-            email:' '
+            name:'',
+            phone:'',
+            email:''
           },
           errors:{}
         }
-
     },
+
 
     methods: {
         close() {
             this.$emit('closeRequest'),
-            this.$data();     
-        },
+            this.$data()
+          },
 
         save() {
           axios.post('/phonebook',this.$data.list)
                 .then(response=>this.close())
                 .catch(error=>this.errors=error.response.data.errors),
                 //.catch(error=>console.log(error))
-           this.$data();     
+           this.$data();
         }
     }
 }

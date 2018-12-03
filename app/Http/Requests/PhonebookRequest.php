@@ -29,8 +29,7 @@ class PhonebookRequest extends FormRequest
             'name'=>  'required|max:255',
             'phone'=> 'required|digits_between:1,15|numeric',
             'email'=> 'required|email|unique:phonebooks'
-            
+
         ];
     }
 }
-

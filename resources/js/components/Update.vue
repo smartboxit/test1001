@@ -12,14 +12,14 @@
           <label class="label">Name</label>
           <div class="control">
             <input class="input" type="text" placeholder="Text input" v-model="list.name" :class="{'is-danger':errors.name}">
-
+          </div>
+        </div>
 
         <div class="field">
           <label class="label">Phone number</label>
           <div class="control">
             <input class="input" type="text" placeholder="Text input" v-model="list.phone">
           </div>
-
         </div>
 
         <div class="field">
@@ -32,20 +32,38 @@
 
       </section>
       <footer class="modal-card-foot">
-          <button class="button is-success" @click="save" >Save</button>
+          <button class="button is-success" @click="update" >Update</button>
           <button class="button" @click='close'>Cancel</button>
       </footer>
     </div>
   </div>
 
-
-
 </template>
 
 <script>
 export default {
+    props: ['openmodal'],
+
+    data() {
+        return {
+          list: {},
+          errors:{}
+        }
+    },
+
+
+    methods: {
+        close() {
+            this.$emit('closeRequest')
+          },
+
+        update() {
+          axios.patch('/phonebook/${this.list.id}',this.$data.list)
+                .then(response=>this.close())
+                .catch(error=>this.errors=error.response.data.errors)
+        }
+    }
 }
 </script>
 
-<style lang="css">
-</style>
+<style lang="css"> </style>

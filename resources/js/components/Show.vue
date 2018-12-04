@@ -19,7 +19,7 @@
         </div>
 
         <div class="field">
-            <label class="label">Updated: <a> {{list.updated_at}} </a> </label>
+            <label class="label">UpdatedAt: <a> {{list.updated_at}} </a> </label>
         </div>
 
       </section>
@@ -44,8 +44,4 @@
   }
 </script>
 
-<style lang="css">
-  $purple: #8A4D76;
-
-  modal-card-head: #purple;
-</style>
+<style lang="css"> </style>

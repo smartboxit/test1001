@@ -80,9 +80,17 @@ class PhonebookController extends Controller
      * @param  \App\Phonebook  $phonebook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Phonebook $phonebook)
+    public function update(PhonebookRequest $request)
     {
-        //
+        //return $request->all();
+
+        $pb = phonebook::find($request->id);
+
+        $pb->name= $request->name;
+        $pb->phone= $request->phone;
+        $pb->email= $request->email;
+        $pb->save();
+
     }
 
     /**

@@ -18,15 +18,14 @@
         </span>
         </p>
     </div>
-    <a class="panel-block">
 
-
-        <span class="column is-9">
-          marksheet
+    <a class="panel-block" v-for="item,key in lists" >
+        <span class="column is-9"  >
+          {{item.name}} ; {{item.email}}
         </span>
 
         <span class="panel-block column is-1">
-                <i class="has-text-info fa fa-eye" aria-hidden="true"></i>
+                <i class="has-text-info fa fa-eye" aria-hidden="true" @click="openShow(key)" ></i>
         </span>
 
         <span class="panel-block column is-1">
@@ -39,7 +38,8 @@
     </a>
  </nav>
 
-        <Add :openmodal='addActive'  :client_id='cid' @closeRequest='close'></Add>
+        <Add  :openmodal='addActive'  @closeRequest='close'></Add>
+        <Show :openmodal='showActive'  @closeRequest='close'></Show>
 
    </div>
 
@@ -47,44 +47,41 @@
 
 
 <script>
-    let Add = require('./Add.vue');
+    let Add  = require('./Add.vue');
+    let Show = require('./Show.vue');
 
+    export default {
+        components:{Add,Show},
 
-export default {
-
-    components:{Add},
-
-    data(){
-           return{
-                addActive: ''
-                }
-    },
-
-    mounted: function() {
-
-                  var valueOne;
-                      function setValue(){
-                        var date = new Date();
-                        valueOne = date.getTime();
-                      }
-                      function readValue() {}
-                      setValue();
-                      readValue();
-
-                      console.log('working fome home.vue : '+valueOne);
-                  },
-
-    methods:{
-        openAdd() {
-                this.addActive='is-active';
-
+        data(){
+               return{
+                    addActive: '',
+                    showActive: '',
+                    lists:{},
+                    errors:{}
+                    }
         },
 
-        close() {
-            this.addActive=''
-            this.cid=this.addActive
-        }
-    }
+        mounted() {
+                //console.log('working from home.vue'),
 
-}
+                axios.post('/getData')
+                        .then(response=>this.lists=response.data)
+                        .catch(error=>this.errors=error.response.data.errors)
+        },
+
+        methods:{
+
+             openAdd() {this.addActive='is-active'      },
+
+             openShow(key){
+               this.$children[1].list=this.lists[key]
+               this.showActive='is-active'     },
+
+               close() {this.addActive=''
+                        this.showActive=''
+                        }
+        }
+
+    }
 </script>

@@ -1,10 +1,10 @@
 <template>
 
-    <div  class="modal" :class='openmodal' :key="client_id">
+    <div  class="modal" :class='openmodal'>
         <div class="modal-background"></div>
             <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Modal title</p>
+            <p class="modal-card-title">Add Contact</p>
             <button class="delete" aria-label="close" @click='close'></button>
         </header>
         <section class="modal-card-body">
@@ -12,7 +12,7 @@
           <div class="field">
             <label class="label">Name</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input" v-model="list.name" >
+              <input class="input" type="text" placeholder="Text input" v-model="list.name" :class="{'is-danger':errors.name}">
             </div>
               <small v-if="errors.name" class="has-text-danger" >{{errors.name[0]}}</small>
           </div>
@@ -35,7 +35,7 @@
 
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success" @click="save" >Save changes</button>
+            <button class="button is-success" @click="save" >Save</button>
             <button class="button" @click='close'>Cancel</button>
         </footer>
       </div>
@@ -46,7 +46,7 @@
 
 <script>
 export default {
-    props: ['openmodal','client_id'],
+    props: ['openmodal'],
 
     data() {
         return {
@@ -62,16 +62,13 @@ export default {
 
     methods: {
         close() {
-            this.$emit('closeRequest'),
-            this.$data()
+            this.$emit('closeRequest')
           },
 
         save() {
           axios.post('/phonebook',this.$data.list)
                 .then(response=>this.close())
-                .catch(error=>this.errors=error.response.data.errors),
-                //.catch(error=>console.log(error))
-           this.$data();
+                .catch(error=>this.errors=error.response.data.errors)
         }
     }
 }

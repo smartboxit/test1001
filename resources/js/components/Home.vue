@@ -7,6 +7,10 @@
             <button class="button is-link is-outlined" @click="openAdd">
                 Add New
             </button>
+                <span class="is-pulled-right fa-1x" v-if="loading">
+                    <i class="fa fa-sync fa-spin"></i>
+                </span>    
+            
     </p>
 
 
@@ -33,7 +37,7 @@
         </span>
 
         <span class="panel-block column is-1">
-                <i class="has-text-danger fa fa-trash" aria-hidden="true" @click="del(key,item.id)"></i>
+                <i class="has-text-danger fa fa-trash " aria-hidden="true" @click="del(key,item.id)"></i>
         </span>
     </a>
  </nav>
@@ -61,7 +65,8 @@
                     showActive: '',
                     updateActive: '',
                     lists:{},
-                    errors:{}
+                    errors:{},
+                    loading:true
                     }
         },
 
@@ -90,11 +95,11 @@
 
              del(key,id) {
                 //console.log( {key} )
-                console.log(vars`${{key}}`);
-
-                axios.delete('/delete/${id}')
-                        .then(response=>console.log('deleted'))
-                        .catch(error=>this.errors=error.response.data.errors)
+                console.log(key,id);
+                if (confirm ("Are you sure ?"))  
+                {axios.delete('/phonebook/'+id)
+                        .then(response=> this.lists.splice(key,1) )
+                        .catch(error=>this.errors=error.response.data.errors)}
              },
 
              close(){

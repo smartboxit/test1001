@@ -46613,10 +46613,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _templateObject = _taggedTemplateLiteral(['', ''], ['', '']);
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
+//
+//
+//
+//
 //
 //
 //
@@ -46680,7 +46680,8 @@ var Update = __webpack_require__(57);
       showActive: '',
       updateActive: '',
       lists: {},
-      errors: {}
+      errors: {},
+      loading: true
     };
   },
   mounted: function mounted() {
@@ -46712,13 +46713,14 @@ var Update = __webpack_require__(57);
       var _this2 = this;
 
       //console.log( {key} )
-      console.log(vars(_templateObject, { key: key }));
-
-      axios.delete('/delete/${id}').then(function (response) {
-        return console.log('deleted');
-      }).catch(function (error) {
-        return _this2.errors = error.response.data.errors;
-      });
+      console.log(key, id);
+      if (confirm("Are you sure ?")) {
+        axios.delete('/phonebook/' + id).then(function (response) {
+          return _this2.lists.splice(key, 1);
+        }).catch(function (error) {
+          return _this2.errors = error.response.data.errors;
+        });
+      }
     },
     close: function close() {
       this.addActive = this.showActive = this.updateActive = '';
@@ -47604,7 +47606,13 @@ var render = function() {
                 on: { click: _vm.openAdd }
               },
               [_vm._v("\n               Add New\n           ")]
-            )
+            ),
+            _vm._v(" "),
+            _vm.loading
+              ? _c("span", { staticClass: "is-pulled-right fa-1x" }, [
+                  _c("i", { staticClass: "fa fa-sync fa-spin" })
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _vm._m(0),
@@ -47647,7 +47655,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "panel-block column is-1" }, [
                 _c("i", {
-                  staticClass: "has-text-danger fa fa-trash",
+                  staticClass: "has-text-danger fa fa-trash ",
                   attrs: { "aria-hidden": "true" },
                   on: {
                     click: function($event) {

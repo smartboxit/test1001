@@ -3,7 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
 use app\Phonebook;
+
+
 
 
 class PhonebookRequest extends FormRequest
@@ -28,7 +31,8 @@ class PhonebookRequest extends FormRequest
         return [
             'name'=>  'required|max:255',
             'phone'=> 'required|digits_between:1,15|numeric',
-            'email'=> 'required|email|unique:phonebooks'
+            //'email'=> 'bail|required|email|unique:phonebooks,id,:id'
+            'email'=> 'required|email'
 
         ];
     }

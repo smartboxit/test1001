@@ -36,6 +36,12 @@
   export default {
       props:['openmodal'],
 
+      data() {
+            return {
+                    list: {},
+                    errors:{}
+                   }
+      },
 
       methods: {
                 close() { this.$emit('closeRequest') }

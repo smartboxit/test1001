@@ -33,14 +33,14 @@
         </span>
 
         <span class="panel-block column is-1">
-                <i class="has-text-danger fa fa-trash" aria-hidden="true"></i>
+                <i class="has-text-danger fa fa-trash" aria-hidden="true" @click="del(key,item.id)"></i>
         </span>
     </a>
  </nav>
 
-        <Add  :openmodal='addActive'  @closeRequest='close'></Add>
-        <Show :openmodal='showActive'  @closeRequest='close'></Show>
-        <Update :openmodal='updateActive'  @closeRequest='close'></Update>
+        <Add    :openmodal='addActive'    @closeRequest='close'></Add>
+        <Show   :openmodal='showActive'   @closeRequest='close'></Show>
+        <Update :openmodal='updateActive' @closeRequest='close'></Update>
 
    </div>
 
@@ -75,18 +75,27 @@
 
         methods:{
 
-             openAdd() {this.addActive='is-active'      
+             openAdd() {this.addActive='is-active'
              },
 
              openShow(key){
                this.$children[1].list=this.lists[key]
-               this.showActive='is-active'     
+               this.showActive='is-active'
              },
 
              openUpdate(key){
                this.$children[2].list=this.lists[key]
-               this.updateActive='is-active'     
-             },  
+               this.updateActive='is-active'
+             },
+
+             del(key,id) {
+                //console.log( {key} )
+                console.log(vars`${{key}}`);
+
+                axios.delete('/delete/${id}')
+                        .then(response=>console.log('deleted'))
+                        .catch(error=>this.errors=error.response.data.errors)
+             },
 
              close(){
                  this.addActive=this.showActive=this.updateActive=''

@@ -11,8 +11,9 @@
         <div class="field">
           <label class="label">Name</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Text input" v-model="list.name" :class="{'is-danger':errors.name}">
+            <input class="input" type="text" placeholder="Text input" v-model="list.name" >
           </div>
+                <small v-if="errors.name" class="has-text-danger" >{{errors.name[0]}}</small>
         </div>
 
         <div class="field">
@@ -20,6 +21,7 @@
           <div class="control">
             <input class="input" type="text" placeholder="Text input" v-model="list.phone">
           </div>
+              <small v-if="errors.phone" class="has-text-danger" >{{errors.phone[0]}}</small>
         </div>
 
         <div class="field">
@@ -27,8 +29,8 @@
           <div class="control">
             <input class="input" type="text" placeholder="Text input" v-model="list.email">
           </div>
-
-        </div>
+                <small v-if="errors.email" class="has-text-danger" >{{errors.email[0]}}</small>
+          </div>
 
       </section>
       <footer class="modal-card-foot">
@@ -41,6 +43,9 @@
 </template>
 
 <script>
+
+  
+
 export default {
     props: ['openmodal'],
 

@@ -46613,6 +46613,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _templateObject = _taggedTemplateLiteral(['', ''], ['', '']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 //
 //
 //
@@ -46703,6 +46707,18 @@ var Update = __webpack_require__(57);
     openUpdate: function openUpdate(key) {
       this.$children[2].list = this.lists[key];
       this.updateActive = 'is-active';
+    },
+    del: function del(key, id) {
+      var _this2 = this;
+
+      //console.log( {key} )
+      console.log(vars(_templateObject, { key: key }));
+
+      axios.delete('/delete/${id}').then(function (response) {
+        return console.log('deleted');
+      }).catch(function (error) {
+        return _this2.errors = error.response.data.errors;
+      });
     },
     close: function close() {
       this.addActive = this.showActive = this.updateActive = '';
@@ -47079,7 +47095,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47160,6 +47176,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['openmodal'],
+
+    data: function data() {
+        return {
+            list: {},
+            errors: {}
+        };
+    },
+
 
     methods: {
         close: function close() {
@@ -47320,7 +47344,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -47373,6 +47397,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['openmodal'],
@@ -47440,7 +47467,6 @@ var render = function() {
                 }
               ],
               staticClass: "input",
-              class: { "is-danger": _vm.errors.name },
               attrs: { type: "text", placeholder: "Text input" },
               domProps: { value: _vm.list.name },
               on: {
@@ -47452,7 +47478,13 @@ var render = function() {
                 }
               }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.errors.name
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.name[0]))
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "field" }, [
@@ -47480,7 +47512,13 @@ var render = function() {
                 }
               }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.errors.phone
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.phone[0]))
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "field" }, [
@@ -47508,7 +47546,13 @@ var render = function() {
                 }
               }
             })
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.errors.email
+            ? _c("small", { staticClass: "has-text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.email[0]))
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -47601,7 +47645,17 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(1, true)
+              _c("span", { staticClass: "panel-block column is-1" }, [
+                _c("i", {
+                  staticClass: "has-text-danger fa fa-trash",
+                  attrs: { "aria-hidden": "true" },
+                  on: {
+                    click: function($event) {
+                      _vm.del(key, item.id)
+                    }
+                  }
+                })
+              ])
             ])
           })
         ],
@@ -47645,17 +47699,6 @@ var staticRenderFns = [
           })
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "panel-block column is-1" }, [
-      _c("i", {
-        staticClass: "has-text-danger fa fa-trash",
-        attrs: { "aria-hidden": "true" }
-      })
     ])
   }
 ]

@@ -9,7 +9,7 @@
 
             <div class="navbar-menu is-active">
                 <router-link to="/home"  class="navbar-item">Home</router-link>
-                <router-link to="/about" class="navbar-item">About</router-link>  
+                <router-link to="/about" class="navbar-item">About</router-link>
             </div>
 
 
@@ -17,6 +17,7 @@
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
+            
             </a>
         </div>
        </nav>

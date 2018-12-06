@@ -9,21 +9,21 @@
             </button>
                 <span class="is-pulled-right fa-1x" v-if="loading">
                     <i class="fa fa-sync fa-spin"></i>
-                </span>    
-            
+                </span>
+
     </p>
 
 
     <div class="panel-block">
         <p class="control has-icons-left">
-        <input class="input is-medium" type="text" placeholder="search">
+        <input class="input is-medium" type="text" placeholder="search" v-model="searchQuery">
         <span class="icon is-small is-left">
             <i class="fa fa-search" aria-hidden="true"></i>
         </span>
         </p>
     </div>
 
-    <a class="panel-block" v-for="item,key in lists" >
+    <a class="panel-block" v-for="item,key in temp" >
         <span class="column is-9"  >
           {{item.name}} ; {{item.email}}
         </span>
@@ -66,15 +66,30 @@
                     updateActive: '',
                     lists:{},
                     errors:{},
-                    loading:true
+                    loading:true,
+                    searchQuery:'',
+                    temp:''
                     }
         },
+
+        watch:{
+          searchQuery() {
+            if(this.searchQuery.length >0 ) {
+              this.temp = this.lists.filter( (item)=>{
+                 return Object.keys(item).some( (key)=>{
+                      let string= String(item[key])
+                      return string.toLowerCase().indexOf(this.searchQuery.toLowerCase() )>-1
+                    })
+                 })
+              } else { this.temp=this.lists }
+            }
+          },
 
         mounted() {
                 //console.log('working from home.vue'),
 
                 axios.post('/getData')
-                        .then(response=>this.lists=response.data)
+                        .then(response=>this.lists=this.temp=response.data)
                         .catch(error=>this.errors=error.response.data.errors)
         },
 
@@ -96,7 +111,7 @@
              del(key,id) {
                 //console.log( {key} )
                 console.log(key,id);
-                if (confirm ("Are you sure ?"))  
+                if (confirm ("Are you sure ?"))
                 {axios.delete('/phonebook/'+id)
                         .then(response=> this.lists.splice(key,1) )
                         .catch(error=>this.errors=error.response.data.errors)}

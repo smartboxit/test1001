@@ -46681,18 +46681,39 @@ var Update = __webpack_require__(57);
       updateActive: '',
       lists: {},
       errors: {},
-      loading: true
+      loading: true,
+      searchQuery: '',
+      temp: ''
     };
   },
+
+
+  watch: {
+    searchQuery: function searchQuery() {
+      var _this = this;
+
+      if (this.searchQuery.length > 0) {
+        this.temp = this.lists.filter(function (item) {
+          return Object.keys(item).some(function (key) {
+            var string = String(item[key]);
+            return string.toLowerCase().indexOf(_this.searchQuery.toLowerCase()) > -1;
+          });
+        });
+      } else {
+        this.temp = this.lists;
+      }
+    }
+  },
+
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     //console.log('working from home.vue'),
 
     axios.post('/getData').then(function (response) {
-      return _this.lists = response.data;
+      return _this2.lists = _this2.temp = response.data;
     }).catch(function (error) {
-      return _this.errors = error.response.data.errors;
+      return _this2.errors = error.response.data.errors;
     });
   },
 
@@ -46710,15 +46731,15 @@ var Update = __webpack_require__(57);
       this.updateActive = 'is-active';
     },
     del: function del(key, id) {
-      var _this2 = this;
+      var _this3 = this;
 
       //console.log( {key} )
       console.log(key, id);
       if (confirm("Are you sure ?")) {
         axios.delete('/phonebook/' + id).then(function (response) {
-          return _this2.lists.splice(key, 1);
+          return _this3.lists.splice(key, 1);
         }).catch(function (error) {
-          return _this2.errors = error.response.data.errors;
+          return _this3.errors = error.response.data.errors;
         });
       }
     },
@@ -46852,7 +46873,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post('/phonebook', this.$data.list).then(function (response) {
-                return _this.close();
+                _this.close();
+                _this.$parent.lists.push(response.data);
+                _this.$parent.lists.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return 1;
+                    } else if (a.name < b.name) {
+                        return -1;
+                    }
+                });
+                _this.list = '';
             }).catch(function (error) {
                 return _this.errors = error.response.data.errors;
             });
@@ -47615,9 +47645,35 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "panel-block" }, [
+            _c("p", { staticClass: "control has-icons-left" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.searchQuery,
+                    expression: "searchQuery"
+                  }
+                ],
+                staticClass: "input is-medium",
+                attrs: { type: "text", placeholder: "search" },
+                domProps: { value: _vm.searchQuery },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.searchQuery = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._m(0)
+            ])
+          ]),
           _vm._v(" "),
-          _vm._l(_vm.lists, function(item, key) {
+          _vm._l(_vm.temp, function(item, key) {
             return _c("a", { staticClass: "panel-block" }, [
               _c("span", { staticClass: "column is-9" }, [
                 _vm._v(
@@ -47693,20 +47749,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel-block" }, [
-      _c("p", { staticClass: "control has-icons-left" }, [
-        _c("input", {
-          staticClass: "input is-medium",
-          attrs: { type: "text", placeholder: "search" }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "icon is-small is-left" }, [
-          _c("i", {
-            staticClass: "fa fa-search",
-            attrs: { "aria-hidden": "true" }
-          })
-        ])
-      ])
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fa fa-search", attrs: { "aria-hidden": "true" } })
     ])
   }
 ]
